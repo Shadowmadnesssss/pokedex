@@ -19,7 +19,7 @@ export default function ListeSacoche() {
     return (
       <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3" aria-hidden="true">
         {Array.from({ length: TAILLE_MAX }, (_, i) => (
-          <li key={i} className="h-40 animate-pulse rounded-2xl bg-gray-200 motion-reduce:animate-none dark:bg-gray-800" />
+          <li key={i} className="squelette h-40 rounded-2xl" />
         ))}
       </ul>
     );

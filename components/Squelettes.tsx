@@ -1,6 +1,7 @@
 import { CLASSES_GRILLE } from "@/components/GrillePokemon";
 
-const BLOC = "animate-pulse rounded bg-gray-200 motion-reduce:animate-none dark:bg-gray-800";
+/** « squelette » est défini dans globals.css : un bloc gris traversé par un reflet. */
+const BLOC = "squelette rounded";
 
 /** Des blocs gris à la forme du contenu à venir : la page ne « saute » pas. */
 export function SqueletteGrille({ nombre = 24 }: { nombre?: number }) {
@@ -13,7 +14,7 @@ export function SqueletteGrille({ nombre = 24 }: { nombre?: number }) {
             className="flex flex-col items-center gap-2 rounded-2xl border border-gray-200 bg-white px-3 pb-4 pt-8 dark:border-gray-800 dark:bg-gray-900"
           >
             <div className={`${BLOC} h-28 w-28 rounded-full sm:h-32 sm:w-32`} />
-            <div className={`${BLOC} h-3 w-10`} />
+            <div className={`${BLOC} mt-1 h-3 w-10`} />
             <div className={`${BLOC} h-4 w-24`} />
             <div className={`${BLOC} h-4 w-16 rounded-full`} />
           </li>
@@ -25,9 +26,9 @@ export function SqueletteGrille({ nombre = 24 }: { nombre?: number }) {
 
 export function SqueletteFiltres() {
   return (
-    <div className="flex flex-wrap gap-2" aria-hidden="true">
+    <div className="flex gap-2 overflow-hidden sm:flex-wrap" aria-hidden="true">
       {Array.from({ length: 19 }, (_, i) => (
-        <div key={i} className={`${BLOC} h-7 w-16 rounded-full`} />
+        <div key={i} className={`${BLOC} h-8 w-20 shrink-0 rounded-full`} />
       ))}
     </div>
   );
@@ -35,15 +36,19 @@ export function SqueletteFiltres() {
 
 export function SqueletteFiche() {
   return (
-    <div role="status" aria-label="Chargement de la fiche" className="grid gap-8 md:grid-cols-2">
-      <div className={`${BLOC} aspect-square w-full max-w-sm justify-self-center rounded-3xl`} />
-      <div className="space-y-4">
-        <div className={`${BLOC} h-4 w-16`} />
-        <div className={`${BLOC} h-9 w-48`} />
-        <div className={`${BLOC} h-6 w-32 rounded-full`} />
-        {Array.from({ length: 6 }, (_, i) => (
-          <div key={i} className={`${BLOC} h-4 w-full`} />
-        ))}
+    <div role="status" aria-label="Chargement de la fiche" className="space-y-8">
+      <div className="squelette grid h-[28rem] items-center gap-6 rounded-3xl px-6 sm:px-10 md:grid-cols-[1fr_auto]">
+        <div className="space-y-4">
+          <div className="h-4 w-16 rounded bg-white/40 dark:bg-white/10" />
+          <div className="h-12 w-64 rounded bg-white/40 dark:bg-white/10" />
+          <div className="h-7 w-40 rounded-full bg-white/40 dark:bg-white/10" />
+          <div className="h-16 w-full max-w-prose rounded bg-white/40 dark:bg-white/10" />
+        </div>
+        <div className="hidden h-72 w-72 rounded-full bg-white/40 md:block dark:bg-white/10" />
+      </div>
+      <div className="grid gap-6 lg:grid-cols-2">
+        <div className={`${BLOC} h-72 rounded-3xl`} />
+        <div className={`${BLOC} h-72 rounded-3xl`} />
       </div>
     </div>
   );

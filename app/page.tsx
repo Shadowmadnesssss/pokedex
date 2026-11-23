@@ -25,7 +25,7 @@ export default function Accueil({ searchParams }: PageProps<"/">) {
         </p>
       </div>
 
-      <Suspense fallback={<div className="h-12 rounded-full bg-gray-200 dark:bg-gray-800" />}>
+      <Suspense fallback={<div className="squelette h-12 rounded-full" />}>
         <BarreRecherche />
       </Suspense>
 

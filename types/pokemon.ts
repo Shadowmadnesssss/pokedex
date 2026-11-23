@@ -31,7 +31,17 @@ export type TypeApi = {
 
 export type EspeceApi = {
   names: { name: string; language: RessourceNommee }[];
+  genera: { genus: string; language: RessourceNommee }[];
+  flavor_text_entries: { flavor_text: string; language: RessourceNommee }[];
   evolution_chain: { url: string } | null;
+};
+
+export type RelationsTypeApi = {
+  damage_relations: {
+    double_damage_from: RessourceNommee[];
+    half_damage_from: RessourceNommee[];
+    no_damage_from: RessourceNommee[];
+  };
 };
 
 export type MaillonApi = {
@@ -54,6 +64,8 @@ export type Pokemon = {
   id: number;
   nom: string; // nom de l'API, en anglais : sert d'identifiant dans les adresses
   nomFr: string; // nom affiché
+  categorie: string | null; // « Pokémon Ombre »
+  description: string | null; // texte du Pokédex, en français
   image: string | null;
   /** Autres visuels de la fiche : rendus 3D de Pokémon HOME et sprite animé. */
   visuels: {

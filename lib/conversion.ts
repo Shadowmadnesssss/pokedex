@@ -24,12 +24,21 @@ export function nomFrancais(espece: EspeceApi | null): string | null {
   return espece?.names.find((n) => n.language.name === "fr")?.name ?? null;
 }
 
+/** Le texte le plus récent du Pokédex en français, sans les retours à la ligne des consoles. */
+export function descriptionFrancaise(espece: EspeceApi | null): string | null {
+  const textes = espece?.flavor_text_entries.filter((f) => f.language.name === "fr") ?? [];
+  const dernier = textes.at(-1)?.flavor_text;
+  return dernier ? dernier.replace(/[\n\f\r­]+/g, " ").replace(/\s+/g, " ").trim() : null;
+}
+
 /** Convertit la réponse brute en Pokemon, dans les bonnes unités. */
 export function versPokemon(brut: PokemonApi, espece: EspeceApi | null): Pokemon {
   return {
     id: brut.id,
     nom: brut.name,
     nomFr: nomFrancais(espece) ?? capitaliser(brut.name),
+    categorie: espece?.genera.find((g) => g.language.name === "fr")?.genus ?? null,
+    description: descriptionFrancaise(espece),
     image: brut.sprites.other?.["official-artwork"]?.front_default ?? brut.sprites.front_default,
     visuels: {
       home: brut.sprites.other?.home?.front_default ?? null,

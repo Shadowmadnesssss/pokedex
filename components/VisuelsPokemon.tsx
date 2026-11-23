@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, type CSSProperties } from "react";
+import { useState, ViewTransition } from "react";
 import ImagePokemon from "@/components/ImagePokemon";
 import type { Pokemon } from "@/types/pokemon";
 
@@ -9,54 +9,45 @@ type Mode = "illustration" | "home" | "chromatique" | "anime";
 type Option = { mode: Mode; libelle: string; src: string };
 
 type Props = {
-  pokemon: Pick<Pokemon, "nomFr" | "image" | "visuels" | "types">;
-  numero: string;
+  pokemon: Pick<Pokemon, "id" | "nomFr" | "image" | "visuels">;
 };
+
+const IMAGE = "relative h-auto w-full drop-shadow-2xl";
 
 /**
  * Bonus : choisir le visuel de la fiche.
  * L'état ne concerne que ce composant : un simple useState suffit.
  */
-export default function VisuelsPokemon({ pokemon, numero }: Props) {
+export default function VisuelsPokemon({ pokemon }: Props) {
   const [mode, setMode] = useState<Mode>("illustration");
 
   // On ne propose que les visuels qui existent pour ce Pokémon.
   const candidats: [Mode, string, string | null][] = [
     ["illustration", "Illustration", pokemon.image],
     ["home", "3D", pokemon.visuels.home],
-    ["chromatique", "3D chromatique", pokemon.visuels.homeChromatique],
+    ["chromatique", "Chromatique", pokemon.visuels.homeChromatique],
     ["anime", "Animé", pokemon.visuels.anime],
   ];
   const options: Option[] = candidats.flatMap(([m, libelle, src]) =>
     src ? [{ mode: m, libelle, src }] : [],
   );
-
   const actuel = options.find((o) => o.mode === mode) ?? options[0];
-  const teinte = { "--teinte": `var(--color-type-${pokemon.types[0]})` } as CSSProperties;
 
   return (
-    <div className="flex w-full max-w-md flex-col items-center gap-3 justify-self-center">
-      <div
-        style={teinte}
-        className="relative flex aspect-square w-full items-center justify-center overflow-hidden rounded-3xl bg-linear-to-br from-(--teinte)/40 to-(--teinte)/5"
-      >
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute bottom-2 right-4 select-none text-7xl font-black text-gray-900/10 dark:text-white/10"
-        >
-          {numero}
-        </span>
-
+    <div className="flex w-full flex-col items-center gap-4">
+      <div className="grid aspect-square w-64 place-items-center sm:w-80">
         {!actuel || actuel.mode === "illustration" ? (
-          // L'illustration est l'image principale : préchargée pour un bon score Lighthouse.
-          <ImagePokemon
-            src={pokemon.image}
-            alt={`Illustration officielle de ${pokemon.nomFr}`}
-            taille={400}
-            sizes="(min-width: 768px) 400px, 85vw"
-            preload
-            className="relative h-auto w-4/5 animate-apparition drop-shadow-2xl motion-reduce:animate-none"
-          />
+          // Même nom que l'image de la carte : c'est elle qui « vole » depuis la liste.
+          <ViewTransition name={`pokemon-${pokemon.id}`} share="morph" default="none">
+            <ImagePokemon
+              src={pokemon.image}
+              alt={`Illustration officielle de ${pokemon.nomFr}`}
+              taille={400}
+              sizes="(min-width: 640px) 320px, 256px"
+              preload
+              className={IMAGE}
+            />
+          </ViewTransition>
         ) : actuel.mode === "anime" ? (
           // GIF animé : unoptimized, sinon l'optimisation d'image figerait l'animation.
           <Image
@@ -66,7 +57,7 @@ export default function VisuelsPokemon({ pokemon, numero }: Props) {
             width={96}
             height={96}
             unoptimized
-            className="relative h-auto w-2/5 animate-apparition drop-shadow-2xl motion-reduce:animate-none"
+            className="relative h-auto w-1/2 animate-apparition drop-shadow-2xl motion-reduce:animate-none"
           />
         ) : (
           <ImagePokemon
@@ -74,8 +65,8 @@ export default function VisuelsPokemon({ pokemon, numero }: Props) {
             src={actuel.src}
             alt={`${pokemon.nomFr}, rendu 3D${actuel.mode === "chromatique" ? " chromatique" : ""}`}
             taille={400}
-            sizes="(min-width: 768px) 400px, 85vw"
-            className="relative h-auto w-4/5 animate-apparition drop-shadow-2xl motion-reduce:animate-none"
+            sizes="(min-width: 640px) 320px, 256px"
+            className={`${IMAGE} animate-apparition motion-reduce:animate-none`}
           />
         )}
       </div>
@@ -84,7 +75,7 @@ export default function VisuelsPokemon({ pokemon, numero }: Props) {
         <div
           role="group"
           aria-label="Choisir le visuel"
-          className="flex flex-wrap justify-center gap-1 rounded-full border border-gray-200 bg-white p-1 dark:border-gray-800 dark:bg-gray-900"
+          className="flex justify-center gap-0.5 rounded-full bg-white/70 p-1 shadow-sm backdrop-blur dark:bg-gray-900/70"
         >
           {options.map((o) => {
             const actif = o.mode === actuel?.mode;
@@ -94,10 +85,10 @@ export default function VisuelsPokemon({ pokemon, numero }: Props) {
                 type="button"
                 aria-pressed={actif}
                 onClick={() => setMode(o.mode)}
-                className={`rounded-full px-3 py-1.5 text-sm font-semibold transition ${
+                className={`rounded-full px-2.5 py-1.5 text-sm font-semibold transition sm:px-3 ${
                   actif
                     ? "bg-gray-900 text-white dark:bg-white dark:text-gray-900"
-                    : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+                    : "text-gray-800 hover:bg-white dark:text-gray-200 dark:hover:bg-gray-800"
                 }`}
               >
                 {o.libelle}

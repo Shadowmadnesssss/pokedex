@@ -25,7 +25,17 @@ Application web qui affiche les **1 025 Pokémon** avec leurs illustrations offi
 | Route Handler `/api/aleatoire` + bouton « Hasard » | `app/api/aleatoire/route.ts` |
 | Responsive (2 à 6 colonnes), thème sombre automatique, clavier (`/` pour chercher), textes `alt` | partout |
 
-**Bonus :** noms français (recherche comprise), badges des types couverts par la sacoche, ajout rapide depuis les cartes, sélecteur de visuel sur la fiche (illustration, rendu 3D HOME, 3D chromatique, sprite animé), comparateur de statistiques (`/comparer?a=dracaufeu&b=tortank`).
+**Bonus :** noms français (recherche comprise), badges des types couverts par la sacoche, ajout rapide depuis les cartes, sélecteur de visuel sur la fiche (illustration, rendu 3D HOME, chromatique, sprite animé), comparateur de statistiques (`/comparer?a=dracaufeu&b=tortank`).
+
+**Interface :**
+
+- Transition animée (View Transitions de React) : l'image de la carte « vole » jusqu'à la fiche.
+- Fiche en bandeau aux couleurs du type, avec catégorie et description du Pokédex en français.
+- Graphique radar des statistiques en SVG (superposé pour deux Pokémon dans le comparateur).
+- Faiblesses et résistances (×4, ×2, ×½, ×¼, ×0), calculées à partir des relations de types de l'API.
+- Cartes teintées avec halo Poké Ball, filtres avec les icônes officielles des types.
+- Barres de stats qui se remplissent, squelettes avec reflet, barre d'onglets en bas de l'écran sur téléphone.
+- Toutes les animations sont coupées si le système demande de réduire les animations.
 
 ## Organisation du code
 

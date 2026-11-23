@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
     // Les illustrations officielles sont hébergées sur GitHub par la PokéAPI.
     remotePatterns: [
       new URL("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/**"),
+      new URL("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/**"),
     ],
   },
   turbopack: {

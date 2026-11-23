@@ -3,13 +3,14 @@ import { appeler, chargerPokemon, TOTAL_POKEMON } from "@/lib/chargement";
 import { aplatir, idDepuisUrl } from "@/lib/conversion";
 
 const GRAPHQL = "https://graphql.pokeapi.co/v1beta2";
-import type { NomType } from "@/lib/types-pokemon";
+import { estUnType, NOMS_TYPES, type NomType } from "@/lib/types-pokemon";
 import type {
   ChaineApi,
   EspeceApi,
   ListeApi,
   Pokemon,
   ReferencePokemon,
+  RelationsTypeApi,
   TypeApi,
 } from "@/types/pokemon";
 
@@ -82,6 +83,42 @@ export async function recupererParType(type: NomType): Promise<ReferencePokemon[
     .map(({ pokemon }) => ({ nom: pokemon.name, id: idDepuisUrl(pokemon.url) }))
     .filter((p) => p.id <= TOTAL_POKEMON)
     .sort((a, b) => a.id - b.id);
+}
+
+export type Faiblesse = { type: NomType; multiplicateur: number };
+
+/** Les relations de dégâts d'un type défenseur (ce qu'il subit). */
+async function recupererRelations(type: NomType) {
+  "use cache";
+  cacheLife("days");
+  const donnees = await appeler<RelationsTypeApi>(`/type/${type}`);
+  if (!donnees) return { double: [], moitie: [], aucun: [] };
+  const noms = (liste: { name: string }[]) => liste.map((t) => t.name);
+  const r = donnees.damage_relations;
+  return {
+    double: noms(r.double_damage_from),
+    moitie: noms(r.half_damage_from),
+    aucun: noms(r.no_damage_from),
+  };
+}
+
+/**
+ * Multiplicateur de dégâts subis pour chaque type attaquant.
+ * Pour un double type, on multiplie : Feu contre Plante/Acier = ×2 × ×2 = ×4.
+ * Les types neutres (×1) ne sont pas renvoyés.
+ */
+export async function recupererFaiblesses(types: string[]): Promise<Faiblesse[]> {
+  const defenseurs = types.filter(estUnType);
+  const relations = await Promise.all(defenseurs.map(recupererRelations));
+  return NOMS_TYPES.map((attaquant) => {
+    const multiplicateur = relations.reduce((m, r) => {
+      if (r.aucun.includes(attaquant)) return 0;
+      if (r.double.includes(attaquant)) return m * 2;
+      if (r.moitie.includes(attaquant)) return m * 0.5;
+      return m;
+    }, 1);
+    return { type: attaquant, multiplicateur };
+  }).filter((f) => f.multiplicateur !== 1);
 }
 
 /** Chaîne d'évolution : l'espèce donne l'adresse de la chaîne, puis on aplatit l'arbre. */

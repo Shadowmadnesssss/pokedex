@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import BadgeType from "@/components/BadgeType";
 import ImagePokemon from "@/components/ImagePokemon";
+import RadarStats from "@/components/RadarStats";
 import { formaterNumero } from "@/lib/conversion";
 import { recupererPokemon, recupererTousLesNoms } from "@/lib/pokeapi";
 import { normaliser } from "@/lib/recherche";
@@ -23,7 +24,7 @@ export default function PageComparer({ searchParams }: Props) {
           Choisissez deux Pokémon (nom français, anglais ou numéro) pour comparer leurs statistiques.
         </p>
       </div>
-      <Suspense fallback={<div className="h-24 animate-pulse rounded-2xl bg-gray-200 dark:bg-gray-800" />}>
+      <Suspense fallback={<div className="squelette h-24 rounded-2xl" />}>
         <Comparaison searchParams={searchParams} />
       </Suspense>
     </div>
@@ -140,6 +141,19 @@ function TableauComparaison({ a, b }: { a: Pokemon; b: Pokemon }) {
           </Link>
         ))}
       </div>
+
+      <RadarStats
+        series={[
+          { nom: a.nomFr, stats: a.stats, couleur: `var(--color-type-${a.types[0]})` },
+          {
+            nom: b.nomFr,
+            stats: b.stats,
+            // Deux Pokémon du même type : on prend une autre couleur pour les distinguer.
+            couleur:
+              b.types[0] === a.types[0] ? "var(--color-gray-500)" : `var(--color-type-${b.types[0]})`,
+          },
+        ]}
+      />
 
       <table className="w-full border-separate border-spacing-y-2 text-sm">
         <caption className="sr-only">
