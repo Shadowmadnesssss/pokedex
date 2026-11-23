@@ -16,9 +16,9 @@ export default function BoutonFavori({ nom, nomAffiche, grand = false }: Props) 
       aria-pressed={estFavori}
       aria-label={estFavori ? `Retirer ${nomAffiche} des favoris` : `Ajouter ${nomAffiche} aux favoris`}
       title={estFavori ? "Retirer des favoris" : "Ajouter aux favoris"}
-      className={`flex items-center justify-center rounded-full bg-white/80 shadow-sm backdrop-blur transition hover:scale-110 motion-reduce:hover:scale-100 dark:bg-gray-800/80 ${
+      className={`flex items-center justify-center rounded-full border border-white/10 bg-black/40 backdrop-blur transition hover:scale-110 hover:border-accent/60 motion-reduce:hover:scale-100 ${
         grand ? "h-11 w-11 text-2xl" : "h-8 w-8 text-lg"
-      } ${estFavori ? "text-amber-500" : "text-gray-500 dark:text-gray-400"}`}
+      } ${estFavori ? "text-accent" : "text-gray-500 dark:text-gray-400"}`}
     >
       <span aria-hidden="true">{estFavori ? "★" : "☆"}</span>
     </button>

@@ -19,7 +19,8 @@ export default function PageComparer({ searchParams }: Props) {
   return (
     <div className="space-y-6">
       <div className="space-y-1">
-        <h1 className="text-3xl font-black tracking-tight">Comparateur</h1>
+        <p className="surtitre">Face à face</p>
+        <h1 className="font-display text-5xl font-semibold text-gray-50">Comparateur</h1>
         <p className="text-gray-600 dark:text-gray-400">
           Choisissez deux Pokémon (nom français, anglais ou numéro) pour comparer leurs statistiques.
         </p>
@@ -65,7 +66,7 @@ async function Comparaison({ searchParams }: { searchParams: Props["searchParams
         <Champ nom="b" libelle="Second Pokémon" valeur={b?.nomFr ?? saisieB} erreur={!!saisieB && !b} />
         <button
           type="submit"
-          className="h-11 rounded-full bg-accent px-6 font-semibold text-white shadow-sm transition hover:bg-red-700"
+          className="h-11 rounded-full px-6 font-semibold transition bouton-or"
         >
           Comparer
         </button>
@@ -106,7 +107,7 @@ function Champ({ nom, libelle, valeur, erreur }: { nom: string; libelle: string;
         autoComplete="off"
         aria-invalid={erreur}
         aria-describedby={erreur ? `erreur-${nom}` : undefined}
-        className="h-11 w-full rounded-full border border-gray-300 bg-white px-4 dark:border-gray-700 dark:bg-gray-900"
+        className="h-11 w-full rounded-full border border-white/10 bg-white/[0.04] px-4 focus:border-accent/60"
       />
       {erreur && (
         <p id={`erreur-${nom}`} className="text-sm text-red-700 dark:text-red-400">
@@ -128,7 +129,7 @@ function TableauComparaison({ a, b }: { a: Pokemon; b: Pokemon }) {
           <Link
             key={p.id}
             href={`/pokemon/${p.nom}`}
-            className="flex flex-col items-center gap-1 rounded-2xl border border-gray-200 bg-white p-4 text-center transition hover:shadow-md dark:border-gray-800 dark:bg-gray-900"
+            className="flex flex-col items-center gap-1 rounded-2xl border p-4 text-center transition hover:shadow-md verre"
           >
             <ImagePokemon src={p.image} alt={p.nomFr} taille={160} className="h-32 w-32 drop-shadow-lg sm:h-40 sm:w-40" />
             <span className="font-mono text-xs text-gray-600 dark:text-gray-400">{formaterNumero(p.id)}</span>

@@ -41,7 +41,7 @@ export default function RadarStats({ series }: { series: SerieRadar[] }) {
     <figure className="mx-auto w-full max-w-sm">
       <svg viewBox="0 0 300 270" role="img" aria-label={`Radar des statistiques. ${description}`}>
         {/* Grille : 4 hexagones concentriques et les 6 axes */}
-        <g className="stroke-gray-300 dark:stroke-gray-700" fill="none" strokeWidth="1">
+        <g className="stroke-white/10" fill="none" strokeWidth="1">
           {[0.25, 0.5, 0.75, 1].map((r) => (
             <polygon key={r} points={contour(AXES.map(() => r))} />
           ))}
@@ -61,14 +61,14 @@ export default function RadarStats({ series }: { series: SerieRadar[] }) {
               <polygon
                 points={contour(ratios)}
                 fill="currentColor"
-                fillOpacity="0.3"
+                fillOpacity="0.22"
                 stroke="currentColor"
-                strokeWidth="2.5"
+                strokeWidth="1.75"
                 strokeLinejoin="round"
               />
               {ratios.map((r, i) => {
                 const p = point(i, r);
-                return <circle key={i} cx={p.x} cy={p.y} r="3.5" fill="currentColor" />;
+                return <circle key={i} cx={p.x} cy={p.y} r="2.75" fill="currentColor" />;
               })}
             </g>
           );
@@ -85,11 +85,11 @@ export default function RadarStats({ series }: { series: SerieRadar[] }) {
               y={p.y}
               textAnchor="middle"
               dominantBaseline="middle"
-              className="fill-gray-700 text-[11px] font-semibold dark:fill-gray-300"
+              className="fill-gray-500 text-[10px] font-semibold uppercase tracking-wider"
             >
               {LIBELLES_STATS[cle]}
               {series.length === 1 && valeur !== undefined && (
-                <tspan className="fill-gray-950 font-bold dark:fill-white"> {valeur}</tspan>
+                <tspan className="fill-gray-50 font-bold"> {valeur}</tspan>
               )}
             </text>
           );

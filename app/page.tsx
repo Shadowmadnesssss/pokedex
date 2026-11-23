@@ -19,7 +19,8 @@ export default function Accueil({ searchParams }: PageProps<"/">) {
   return (
     <div className="space-y-6">
       <div className="space-y-1">
-        <h1 className="text-3xl font-black tracking-tight sm:text-4xl">Pokédex national</h1>
+        <p className="surtitre">Collection · 1 025 espèces</p>
+        <h1 className="font-display text-5xl font-semibold text-gray-50 sm:text-6xl">Pokédex national</h1>
         <p className="text-gray-600 dark:text-gray-400">
           Les 1 025 Pokémon, de Bulbizarre à Pêchaminus.
         </p>

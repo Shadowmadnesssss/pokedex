@@ -23,7 +23,7 @@ export default function Erreur({ error, retry }: { error: unknown; retry: () => 
       <button
         type="button"
         onClick={() => retry()}
-        className="rounded-full bg-accent px-6 py-2.5 font-semibold text-white shadow-sm transition hover:bg-red-700"
+        className="rounded-full px-6 py-2.5 font-semibold transition bouton-or"
       >
         Réessayer
       </button>

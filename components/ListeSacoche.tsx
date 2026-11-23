@@ -68,7 +68,7 @@ function CarteMembre({ membre }: { membre: MembreEquipe }) {
   const surnom = membre.surnom?.trim();
 
   return (
-    <article className="flex h-full animate-apparition gap-4 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm motion-reduce:animate-none dark:border-gray-800 dark:bg-gray-900">
+    <article className="flex h-full animate-apparition gap-4 rounded-2xl border p-4 motion-reduce:animate-none verre">
       <Link href={`/pokemon/${membre.nom}`} className="shrink-0 rounded-xl">
         <ImagePokemon src={membre.image} alt={membre.nomFr} taille={96} className="h-24 w-24 drop-shadow-md" />
       </Link>
@@ -133,8 +133,8 @@ function BoutonVider() {
       onBlur={() => setAConfirmer(false)}
       className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
         aConfirmer
-          ? "bg-accent text-white hover:bg-red-700"
-          : "border border-gray-300 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800"
+          ? "bouton-or"
+          : "border border-white/15 hover:border-accent/60 hover:text-accent"
       }`}
     >
       {aConfirmer ? "Confirmer ?" : "Vider la sacoche"}

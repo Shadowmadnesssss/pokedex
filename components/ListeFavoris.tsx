@@ -23,7 +23,7 @@ export default function ListeFavoris() {
         <button
           type="button"
           onClick={reessayer}
-          className="rounded-full bg-accent px-5 py-2 font-semibold text-white hover:bg-red-700"
+          className="rounded-full px-5 py-2 font-semibold bouton-or"
         >
           Réessayer
         </button>
@@ -34,13 +34,13 @@ export default function ListeFavoris() {
   if (noms.length === 0) {
     return (
       <div className="space-y-4 rounded-2xl border border-dashed border-gray-300 p-10 text-center dark:border-gray-700">
-        <p aria-hidden="true" className="text-4xl text-amber-500">
+        <p aria-hidden="true" className="text-4xl text-accent">
           ☆
         </p>
         <p className="text-gray-600 dark:text-gray-400">
           Aucun favori pour l’instant. Touchez l’étoile d’une carte pour l’ajouter ici.
         </p>
-        <Link href="/" className="inline-block rounded-full bg-accent px-5 py-2 font-semibold text-white hover:bg-red-700">
+        <Link href="/" className="inline-block rounded-full px-5 py-2 font-semibold bouton-or">
           Parcourir le Pokédex
         </Link>
       </div>

@@ -27,10 +27,10 @@ export default function BoutonAjoutRapide({ pokemon }: Props) {
       aria-pressed={dansSacoche}
       aria-label={libelle}
       title={libelle}
-      className={`flex h-8 w-8 items-center justify-center rounded-full text-lg font-bold shadow-sm backdrop-blur transition hover:scale-110 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100 motion-reduce:hover:scale-100 ${
+      className={`flex h-8 w-8 items-center justify-center rounded-full text-lg font-bold backdrop-blur transition hover:scale-110 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100 motion-reduce:hover:scale-100 ${
         dansSacoche
-          ? "bg-accent text-white"
-          : "bg-white/80 text-gray-700 dark:bg-gray-800/80 dark:text-gray-200"
+          ? "bouton-or"
+          : "border border-white/10 bg-black/40 text-gray-200 hover:border-accent/60 hover:text-accent"
       }`}
     >
       <span aria-hidden="true">{dansSacoche ? "✓" : "+"}</span>

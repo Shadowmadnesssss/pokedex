@@ -11,7 +11,7 @@ export function SqueletteGrille({ nombre = 24 }: { nombre?: number }) {
         {Array.from({ length: nombre }, (_, i) => (
           <li
             key={i}
-            className="flex flex-col items-center gap-2 rounded-2xl border border-gray-200 bg-white px-3 pb-4 pt-8 dark:border-gray-800 dark:bg-gray-900"
+            className="flex flex-col items-center gap-2 rounded-2xl border px-3 pb-4 pt-8 verre"
           >
             <div className={`${BLOC} h-28 w-28 rounded-full sm:h-32 sm:w-32`} />
             <div className={`${BLOC} mt-1 h-3 w-10`} />

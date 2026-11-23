@@ -75,7 +75,7 @@ export default function VisuelsPokemon({ pokemon }: Props) {
         <div
           role="group"
           aria-label="Choisir le visuel"
-          className="flex justify-center gap-0.5 rounded-full bg-white/70 p-1 shadow-sm backdrop-blur dark:bg-gray-900/70"
+          className="flex justify-center gap-0.5 rounded-full border border-white/10 bg-black/40 p-1 backdrop-blur"
         >
           {options.map((o) => {
             const actif = o.mode === actuel?.mode;
@@ -87,8 +87,8 @@ export default function VisuelsPokemon({ pokemon }: Props) {
                 onClick={() => setMode(o.mode)}
                 className={`rounded-full px-2.5 py-1.5 text-sm font-semibold transition sm:px-3 ${
                   actif
-                    ? "bg-gray-900 text-white dark:bg-white dark:text-gray-900"
-                    : "text-gray-800 hover:bg-white dark:text-gray-200 dark:hover:bg-gray-800"
+                    ? "bg-accent/15 text-accent ring-1 ring-inset ring-accent/40"
+                    : "text-gray-400 hover:text-white"
                 }`}
               >
                 {o.libelle}

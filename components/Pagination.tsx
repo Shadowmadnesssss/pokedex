@@ -11,9 +11,9 @@ type Props = {
 const BOUTON =
   "inline-flex min-w-28 justify-center rounded-full border px-4 py-2 text-sm font-semibold transition";
 const ACTIF =
-  "border-gray-300 bg-white hover:border-accent hover:text-accent dark:border-gray-700 dark:bg-gray-900";
+  "border-white/10 bg-white/[0.03] text-gray-200 hover:border-accent/60 hover:text-accent";
 const INACTIF =
-  "cursor-not-allowed border-gray-200 text-gray-500 dark:border-gray-800 dark:text-gray-500";
+  "cursor-not-allowed border-white/5 text-gray-600";
 
 export default function Pagination({ pageCourante, nombrePages, q, type }: Props) {
   if (nombrePages <= 1) return null; // rien à paginer : on n'affiche rien

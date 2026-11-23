@@ -42,7 +42,7 @@ export default function PagePokemon({ params }: Props) {
     <div className="space-y-4">
       <Link
         href="/"
-        className="inline-block rounded text-sm font-semibold text-gray-600 hover:text-accent dark:text-gray-400"
+        className="inline-block rounded text-sm font-semibold text-gray-400 hover:text-accent"
       >
         ← Retour à la liste
       </Link>
@@ -65,11 +65,20 @@ async function Fiche({ params }: { params: Props["params"] }) {
   return (
     <article style={teinte} className="space-y-8">
       {/* ---------- Bandeau « héros » aux couleurs du type principal ---------- */}
-      <section className="relative overflow-hidden rounded-3xl bg-linear-to-br from-(--teinte)/60 via-(--teinte)/25 to-(--teinte)/5 px-6 py-8 sm:px-10 dark:from-(--teinte)/45 dark:via-(--teinte)/15">
-        <PokeballDecor className="pointer-events-none absolute -right-20 -top-20 h-96 w-96 text-white/30 dark:text-white/5" />
+      <section className="verre relative overflow-hidden rounded-3xl border px-6 py-8 sm:px-10 sm:py-12">
+        {/* Lueur du type derrière le Pokémon, filet doré en haut */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_75%_40%,var(--teinte),transparent_60%)] opacity-30 max-md:bg-[radial-gradient(ellipse_at_50%_25%,var(--teinte),transparent_60%)]"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-10 top-0 h-px bg-linear-to-r from-transparent via-accent/70 to-transparent"
+        />
+        <PokeballDecor className="pointer-events-none absolute -right-20 -top-20 h-96 w-96 text-white/[0.04]" />
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute -bottom-6 left-2 select-none font-mono text-[7rem] font-black leading-none tracking-tighter text-gray-900/[0.07] sm:text-[10rem] dark:text-white/[0.06]"
+          className="pointer-events-none absolute -bottom-6 left-2 select-none font-display text-[8rem] font-semibold italic leading-none text-white/[0.04] sm:text-[12rem]"
         >
           {numero}
         </span>
@@ -77,19 +86,19 @@ async function Fiche({ params }: { params: Props["params"] }) {
         <div className="relative grid items-center gap-6 md:grid-cols-[1fr_auto]">
           <div className="order-2 space-y-4 md:order-1">
             <div className="space-y-1">
-              <p className="font-mono text-sm font-semibold text-gray-800 dark:text-gray-300">{numero}</p>
+              <p className="surtitre">N° {numero.slice(1)}</p>
               <div className="flex items-center gap-3">
-                <h1 className="min-w-0 break-words text-4xl font-black tracking-tight sm:text-6xl">
+                <h1 className="min-w-0 break-words font-display text-5xl font-semibold leading-none text-gray-50 sm:text-7xl">
                   {pokemon.nomFr}
                 </h1>
                 <div className="shrink-0">
                   <BoutonFavori nom={pokemon.nom} nomAffiche={pokemon.nomFr} grand />
                 </div>
               </div>
-              <p className="text-gray-800 dark:text-gray-300">
+              <p className="pt-1 text-gray-300">
                 {pokemon.categorie}
                 {pokemon.nomFr.toLowerCase() !== pokemon.nom && (
-                  <span className="text-gray-700 dark:text-gray-400"> · {capitaliser(pokemon.nom)} en anglais</span>
+                  <span className="text-gray-500"> · {capitaliser(pokemon.nom)} en anglais</span>
                 )}
               </p>
             </div>
@@ -101,7 +110,7 @@ async function Fiche({ params }: { params: Props["params"] }) {
             </div>
 
             {pokemon.description && (
-              <blockquote className="max-w-prose border-l-4 border-(--teinte) pl-4 text-lg italic leading-relaxed text-gray-900 dark:text-gray-100">
+              <blockquote className="max-w-prose border-l border-accent/50 pl-5 font-display text-xl italic leading-relaxed text-gray-200 sm:text-2xl">
                 {pokemon.description}
               </blockquote>
             )}
@@ -168,9 +177,9 @@ function Panneau({ id, titre, children }: { id: string; titre: string; children:
   return (
     <section
       aria-labelledby={id}
-      className="space-y-4 rounded-3xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900"
+      className="space-y-4 rounded-3xl border p-6 verre"
     >
-      <h2 id={id} className="text-xl font-bold">
+      <h2 id={id} className="font-display text-2xl font-semibold text-gray-50">
         {titre}
       </h2>
       {children}
@@ -180,8 +189,8 @@ function Panneau({ id, titre, children }: { id: string; titre: string; children:
 
 function Mesure({ libelle, valeur }: { libelle: string; valeur: string }) {
   return (
-    <div className="min-w-28 rounded-2xl bg-white/70 px-4 py-2 shadow-sm backdrop-blur dark:bg-gray-900/70">
-      <dt className="text-xs font-semibold uppercase tracking-wide text-gray-600 dark:text-gray-400">{libelle}</dt>
+    <div className="min-w-28 rounded-2xl border border-white/10 bg-black/30 px-4 py-2 backdrop-blur">
+      <dt className="text-[10px] font-semibold uppercase tracking-[0.25em] text-gray-500">{libelle}</dt>
       <dd className="text-lg font-bold">{valeur}</dd>
     </div>
   );
@@ -209,12 +218,12 @@ async function Evolutions({ pokemon }: { pokemon: Pokemon }) {
                   aria-current={courant ? "page" : undefined}
                   className={`flex w-28 flex-col items-center rounded-2xl border p-2 text-center transition hover:-translate-y-0.5 hover:shadow-md motion-reduce:hover:translate-y-0 ${
                     courant
-                      ? "border-(--teinte) bg-(--teinte)/15"
-                      : "border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-950"
+                      ? "border-accent/50 bg-accent/[0.07]"
+                      : "border-white/[0.08] bg-white/[0.02] hover:border-white/20"
                   }`}
                 >
                   <ImagePokemon src={evo.image} alt={evo.nomFr} taille={80} className="h-20 w-20" />
-                  <span className="text-sm font-semibold">{evo.nomFr}</span>
+                  <span className="font-display text-lg font-semibold">{evo.nomFr}</span>
                   <span className="font-mono text-xs text-gray-600 dark:text-gray-400">
                     {formaterNumero(evo.id)}
                   </span>

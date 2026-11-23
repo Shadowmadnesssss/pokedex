@@ -1,6 +1,12 @@
 @import "tailwindcss";
 
 /*
+  Ambiance « dark luxe » : le site est toujours sombre.
+  La variante dark: s'applique partout (la classe .dark est posée sur <html>).
+*/
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
   Couleurs des types. "static" force Tailwind à émettre toutes les variables
   (--color-type-fire, ...) même si une classe n'est pas utilisée : la teinte
   des cartes s'en sert via une variable CSS locale.
@@ -25,7 +31,22 @@
   --color-type-steel: #60a1b8;
   --color-type-fairy: #ef70ef;
 
-  --color-accent: #dc2626;
+  /* Or pâle : accent des éléments actifs */
+  --color-accent: #d4b26a;
+  --color-accent-clair: #e8cd8f;
+
+  /* Gris neutres, avec un noir plus profond que celui de Tailwind */
+  --color-gray-50: #fafafa;
+  --color-gray-100: #f4f4f5;
+  --color-gray-200: #e4e4e7;
+  --color-gray-300: #d4d4d8;
+  --color-gray-400: #a1a1aa;
+  --color-gray-500: #7c7c86;
+  --color-gray-600: #56565f;
+  --color-gray-700: #34343c;
+  --color-gray-800: #222228;
+  --color-gray-900: #141418;
+  --color-gray-950: #09090b;
 
   --animate-apparition: apparition 0.35s ease-out both;
   --animate-remplir: remplir 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
@@ -68,14 +89,69 @@
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-cormorant);
 }
 
 :root {
-  color-scheme: light dark;
+  color-scheme: dark;
 }
 
 body {
-  @apply bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-100;
+  @apply bg-gray-950 text-gray-100;
+}
+
+/* Lueur dorée en haut de l'écran, fixe pendant le défilement */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60rem 30rem at 50% -8rem, rgb(212 178 106 / 0.11), transparent 70%),
+    radial-gradient(40rem 30rem at 100% 100%, rgb(212 178 106 / 0.04), transparent 70%);
+}
+
+/* Léger grain, comme un papier photo */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Surface « verre » : presque transparente, avec un filet clair en haut */
+@utility verre {
+  background-color: rgb(255 255 255 / 0.035);
+  border-color: rgb(255 255 255 / 0.08);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.06),
+    0 24px 48px -24px rgb(0 0 0 / 0.7);
+}
+
+/* Petit surtitre en capitales espacées, couleur or */
+@utility surtitre {
+  font-size: 0.7rem;
+  line-height: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+/* Bouton principal : dégradé or, texte sombre */
+@utility bouton-or {
+  background-image: linear-gradient(180deg, var(--color-accent-clair), var(--color-accent));
+  color: var(--color-gray-950);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.35),
+    0 8px 24px -10px rgb(212 178 106 / 0.6);
+  &:hover:not(:disabled) {
+    filter: brightness(1.08);
+  }
 }
 
 /* Squelette : un reflet lumineux qui traverse le bloc gris */
@@ -106,7 +182,7 @@ body {
 /* Barre défilante discrète (filtres sur mobile) */
 @utility defilement-discret {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-gray-300) transparent;
+  scrollbar-color: var(--color-gray-700) transparent;
 }
 
 /* ---------- View Transitions : la carte « vole » jusqu'à la fiche ---------- */

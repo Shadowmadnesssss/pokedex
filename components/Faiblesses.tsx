@@ -24,8 +24,8 @@ export default async function Faiblesses({ types }: { types: string[] }) {
               <span
                 className={`inline-block min-w-9 rounded-md px-1.5 py-0.5 text-center font-mono text-xs font-bold ${
                   g.multiplicateur > 1
-                    ? "bg-red-100 text-red-800 dark:bg-red-950 dark:text-red-300"
-                    : "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300"
+                    ? "bg-rose-500/15 text-rose-300 ring-1 ring-inset ring-rose-400/30"
+                    : "bg-emerald-500/15 text-emerald-300 ring-1 ring-inset ring-emerald-400/30"
                 }`}
               >
                 {g.badge}

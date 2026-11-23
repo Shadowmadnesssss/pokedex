@@ -19,8 +19,8 @@ export default function LienNav({ href, children }: Props) {
       aria-current={actif ? "page" : undefined}
       className={`${CLASSES_LIEN_NAV} ${
         actif
-          ? "bg-white/20 text-white"
-          : "text-red-50 hover:bg-white/10 hover:text-white"
+          ? "bg-accent/10 text-accent ring-1 ring-inset ring-accent/30"
+          : "text-gray-400 hover:text-white"
       }`}
     >
       {children}

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Cormorant_Garamond, Geist, Geist_Mono } from "next/font/google";
 import { Suspense } from "react";
 import BarreOnglets from "@/components/BarreOnglets";
 import EnTete from "@/components/EnTete";
@@ -9,6 +9,12 @@ import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+// Serif élégante pour les titres (pas de version variable : on choisit les graisses)
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+});
 
 export const metadata: Metadata = {
   title: {
@@ -20,20 +26,18 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#b91c1c" },
-    { media: "(prefers-color-scheme: dark)", color: "#030712" },
-  ],
+  themeColor: "#09090b",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="fr" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+    <html lang="fr" className={`${geistSans.variable} ${geistMono.variable} ${cormorant.variable} dark h-full antialiased`}>
       {/* pb-16 sur téléphone : la place de la barre d'onglets fixée en bas */}
       <body className="flex min-h-full flex-col pb-16 font-sans sm:pb-0">
         <a
           href="#contenu"
-          className="sr-only z-50 rounded bg-white px-3 py-2 text-gray-900 focus:not-sr-only focus:fixed focus:left-2 focus:top-2"
+          className="sr-only z-50 rounded bg-accent px-3 py-2 text-gray-950 focus:not-sr-only focus:fixed focus:left-2 focus:top-2"
         >
           Aller au contenu
         </a>

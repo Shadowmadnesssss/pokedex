@@ -61,7 +61,7 @@ export default function BarreRecherche() {
         }}
         placeholder="Nom (fr ou en) ou numéro…"
         autoComplete="off"
-        className="h-12 w-full rounded-full border border-gray-300 bg-white pl-10 pr-28 shadow-sm placeholder:text-gray-500 focus:border-accent dark:border-gray-700 dark:bg-gray-900"
+        className="h-12 w-full rounded-full border border-white/10 bg-white/[0.04] pl-10 pr-28 shadow-[inset_0_1px_0_rgb(255_255_255/0.05)] placeholder:text-gray-500 focus:border-accent/60 focus:bg-white/[0.06]"
       />
       <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-sm text-gray-600 dark:text-gray-400">
         {enAttente ? (

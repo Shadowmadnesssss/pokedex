@@ -22,8 +22,8 @@ export default function FiltreTypes({ q, type }: Props) {
             aria-current={type === null ? "page" : undefined}
             className={`${PASTILLE} px-3 ${
               type === null
-                ? "border-gray-900 bg-gray-900 text-white dark:border-white dark:bg-white dark:text-gray-900"
-                : "border-gray-300 bg-white text-gray-800 hover:border-gray-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
+                ? "border-accent/60 bg-accent/10 text-accent"
+                : "border-white/10 bg-white/[0.03] text-gray-300 hover:border-accent/50 hover:text-white"
             }`}
           >
             Tous
@@ -39,8 +39,8 @@ export default function FiltreTypes({ q, type }: Props) {
                 aria-current={actif ? "page" : undefined}
                 className={`${PASTILLE} ${
                   actif
-                    ? `${TYPES[t].classes} border-transparent shadow-md`
-                    : "border-gray-300 bg-white text-gray-800 hover:border-gray-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
+                    ? `${TYPES[t].classes} border-transparent shadow-[0_0_24px_-6px_rgb(255_255_255/0.35)]`
+                    : "border-white/10 bg-white/[0.03] text-gray-300 hover:border-accent/50 hover:text-white"
                 }`}
               >
                 <IconeType type={t} immediat />

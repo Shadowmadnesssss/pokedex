@@ -31,7 +31,7 @@ export default function BoutonSacoche({ pokemon }: Props) {
         type="button"
         disabled={pleine}
         onClick={() => ajouter(pokemon)}
-        className="rounded-full bg-accent px-5 py-2.5 font-semibold text-white shadow-sm transition hover:bg-red-700 disabled:cursor-not-allowed disabled:bg-gray-400 dark:disabled:bg-gray-700"
+        className="rounded-full px-5 py-2.5 font-semibold transition bouton-or disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none"
       >
         Ajouter à la sacoche ({taille}/{TAILLE_MAX})
       </button>

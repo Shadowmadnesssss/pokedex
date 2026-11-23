@@ -28,7 +28,7 @@ export default function BoutonHasard() {
       onClick={tirer}
       disabled={enAttente}
       title={erreur ? "Le tirage a échoué, réessayez" : "Un Pokémon au hasard"}
-      className={`${CLASSES_LIEN_NAV} text-red-50 hover:bg-white/10 hover:text-white disabled:opacity-60`}
+      className={`${CLASSES_LIEN_NAV} text-gray-400 hover:text-white disabled:opacity-60`}
     >
       <span aria-hidden="true">🎲</span>
       {enAttente ? "…" : erreur ? "Réessayer" : "Hasard"}

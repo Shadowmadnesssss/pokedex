@@ -6,7 +6,7 @@ export const metadata: Metadata = { title: "Introuvable" };
 export default function Introuvable() {
   return (
     <div className="mx-auto max-w-md space-y-4 py-16 text-center">
-      <p aria-hidden="true" className="text-7xl font-black text-gray-300 dark:text-gray-700">
+      <p aria-hidden="true" className="font-display text-8xl font-semibold italic text-accent/40">
         404
       </p>
       <h1 className="text-2xl font-bold">Ce Pokémon s’est enfui…</h1>
@@ -15,7 +15,7 @@ export default function Introuvable() {
       </p>
       <Link
         href="/"
-        className="inline-block rounded-full bg-accent px-6 py-2.5 font-semibold text-white shadow-sm transition hover:bg-red-700"
+        className="inline-block rounded-full px-6 py-2.5 font-semibold transition bouton-or"
       >
         Retour au Pokédex
       </Link>
