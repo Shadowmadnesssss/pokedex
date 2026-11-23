@@ -12,7 +12,11 @@ export type PokemonApi = {
   species: RessourceNommee;
   sprites: {
     front_default: string | null;
-    other?: { "official-artwork"?: { front_default: string | null } };
+    other?: {
+      "official-artwork"?: { front_default: string | null };
+      home?: { front_default: string | null; front_shiny: string | null };
+      showdown?: { front_default: string | null };
+    };
   };
 };
 
@@ -51,6 +55,12 @@ export type Pokemon = {
   nom: string; // nom de l'API, en anglais : sert d'identifiant dans les adresses
   nomFr: string; // nom affiché
   image: string | null;
+  /** Autres visuels de la fiche : rendus 3D de Pokémon HOME et sprite animé. */
+  visuels: {
+    home: string | null;
+    homeChromatique: string | null;
+    anime: string | null;
+  };
   types: string[];
   taille: number; // mètres
   poids: number; // kilogrammes

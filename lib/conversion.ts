@@ -31,6 +31,11 @@ export function versPokemon(brut: PokemonApi, espece: EspeceApi | null): Pokemon
     nom: brut.name,
     nomFr: nomFrancais(espece) ?? capitaliser(brut.name),
     image: brut.sprites.other?.["official-artwork"]?.front_default ?? brut.sprites.front_default,
+    visuels: {
+      home: brut.sprites.other?.home?.front_default ?? null,
+      homeChromatique: brut.sprites.other?.home?.front_shiny ?? null,
+      anime: brut.sprites.other?.showdown?.front_default ?? null,
+    },
     types: [...brut.types].sort((a, b) => a.slot - b.slot).map((t) => t.type.name),
     taille: brut.height / 10,
     poids: brut.weight / 10,

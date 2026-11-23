@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Suspense, type CSSProperties } from "react";
+import { Suspense } from "react";
 import BadgeType from "@/components/BadgeType";
 import BarresStats from "@/components/BarresStats";
 import BoutonFavori from "@/components/BoutonFavori";
 import BoutonSacoche from "@/components/BoutonSacoche";
 import ImagePokemon from "@/components/ImagePokemon";
 import { SqueletteFiche } from "@/components/Squelettes";
+import VisuelsPokemon from "@/components/VisuelsPokemon";
 import { capitaliser, formaterNumero } from "@/lib/conversion";
 import { recupererEvolutions, recupererPokemon, recupererTousLesNoms } from "@/lib/pokeapi";
 import type { Pokemon } from "@/types/pokemon";
@@ -53,30 +54,18 @@ async function Fiche({ params }: { params: Props["params"] }) {
   // Un nom inconnu n'est pas une panne : c'est un 404.
   if (!pokemon) notFound();
 
-  const teinte = { "--teinte": `var(--color-type-${pokemon.types[0]})` } as CSSProperties;
-
   return (
     <article className="space-y-10">
       <div className="grid items-start gap-8 md:grid-cols-2">
-        <div
-          style={teinte}
-          className="relative flex aspect-square w-full max-w-md items-center justify-center justify-self-center overflow-hidden rounded-3xl bg-linear-to-br from-(--teinte)/40 to-(--teinte)/5"
-        >
-          <span
-            aria-hidden="true"
-            className="pointer-events-none absolute bottom-2 right-4 select-none text-7xl font-black text-gray-900/10 dark:text-white/10"
-          >
-            {formaterNumero(pokemon.id)}
-          </span>
-          <ImagePokemon
-            src={pokemon.image}
-            alt={`Illustration officielle de ${pokemon.nomFr}`}
-            taille={400}
-            sizes="(min-width: 768px) 400px, 85vw"
-            preload
-            className="relative h-auto w-4/5 drop-shadow-2xl"
-          />
-        </div>
+        <VisuelsPokemon
+          pokemon={{
+            nomFr: pokemon.nomFr,
+            image: pokemon.image,
+            visuels: pokemon.visuels,
+            types: pokemon.types,
+          }}
+          numero={formaterNumero(pokemon.id)}
+        />
 
         <div className="space-y-6">
           <header className="space-y-2">
