@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Geist, Geist_Mono } from "next/font/google";
 import { Suspense } from "react";
 import BarreOnglets from "@/components/BarreOnglets";
+import CodeSecret from "@/components/CodeSecret";
 import EnTete from "@/components/EnTete";
 import HydratationStores from "@/components/HydratationStores";
 import PiedDePage from "@/components/PiedDePage";
@@ -42,6 +43,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           Aller au contenu
         </a>
         <HydratationStores />
+        <CodeSecret />
         <EnTete />
         <main id="contenu" className="mx-auto w-full max-w-6xl flex-1 px-4 py-6">
           {children}

@@ -38,6 +38,13 @@ Application web qui affiche les **1 025 Pokémon** avec leurs illustrations offi
 - Barres de stats qui se remplissent, squelettes avec reflet, barre d'onglets en bas de l'écran sur téléphone.
 - Toutes les animations sont coupées si le système demande de réduire les animations.
 
+**Easter egg :** le code Konami (↑ ↑ ↓ ↓ ← → ← → B A) ou « missingno » dans la recherche ouvre `/console`, une console portable rétro propulsée par l'émulateur libre [mGBA](https://mgba.io) (WebAssembly, licence MPL-2.0).
+
+- Aucune ROM n'est fournie : chacun insère ses propres cartouches (`.gb`, `.gbc`, `.gba`), qui restent dans son navigateur (IndexedDB) et ne sont jamais envoyées.
+- Sauvegardes du jeu et sauvegarde automatique de la partie, boutons tactiles sur téléphone, clavier sur ordinateur.
+- mGBA utilise des threads (`SharedArrayBuffer`) : `next.config.ts` ajoute les en-têtes d'isolation (`COOP`/`COEP`) **uniquement** sur `/console`. On y entre donc par un vrai chargement de page, pas par une navigation côté client.
+- Le cœur de l'émulateur est copié de `node_modules` vers `public/mgba` par `scripts/copier-mgba.mjs` (après `npm install` et avant `npm run build`) et n'est téléchargé qu'à l'ouverture de la console.
+
 ## Organisation du code
 
 ```

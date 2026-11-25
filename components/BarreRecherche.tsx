@@ -4,6 +4,8 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useRef, useState, useTransition } from "react";
 import { useRaccourci } from "@/hooks/useRaccourci";
 import { useRappelTemporise } from "@/hooks/useRappelTemporise";
+import { ouvrirConsole } from "@/lib/console";
+import { normaliser } from "@/lib/recherche";
 
 /** Écrit la recherche dans l'adresse (?q=...), 300 ms après la dernière frappe. */
 export default function BarreRecherche() {
@@ -56,6 +58,8 @@ export default function BarreRecherche() {
         type="search"
         value={texte}
         onChange={(e) => {
+          // Easter egg : un Pokémon qui n'existe pas ouvre la console cachée
+          if (normaliser(e.target.value.trim()) === "missingno") return ouvrirConsole();
           setTexte(e.target.value);
           naviguer(e.target.value);
         }}

@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Cœur de l'émulateur, copié depuis node_modules (code généré par Emscripten)
+    "public/mgba/**",
   ]),
 ]);
 

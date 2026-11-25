@@ -42,3 +42,6 @@ next-env.d.ts
 
 # outils locaux
 .claude/
+
+# émulateur copié par scripts/copier-mgba.mjs
+/public/mgba/
